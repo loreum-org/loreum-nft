@@ -6,6 +6,8 @@ async function main() {
   const admin = ethers.provider.getSigner(1);
   const adminAdr = await admin.getAddress();
 
+  console.log(adminAdr)
+
   const name = "LoreumNFT";
   const symbol = "LOREUM";
   const tokenUri = "ipfs://bafybeia4ba2mxk3dzdhu2kaqeh5svu244qmcwbkhm56e2nz4pnuqfake4q/";
@@ -15,8 +17,16 @@ async function main() {
   const maxMint = 100;
 
   const LoreumNFT = await ethers.getContractFactory(name);
-  const params = [name, symbol, tokenUri, mintCost, royaltyFraction, maxSupply, maxMint, adminAdr];
-  const NFT = await LoreumNFT.deploy(...params);
+  const NFT = await LoreumNFT.deploy(
+    name,
+    symbol,
+    tokenUri,
+    mintCost,
+    royaltyFraction,
+    maxSupply,
+    maxMint,
+    adminAdr
+  );
 
   await NFT.deployed();
   console.log(NFT.address);
