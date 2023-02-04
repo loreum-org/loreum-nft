@@ -142,10 +142,8 @@ contract LoreumNFTTest is Utility, ERC721Holder {
         uint preBalanceMinter = address(tom).balance;
         uint preBalanceOwner = address(NFT.owner()).balance;
 
-
         // publicMint()
         assert(tom.try_publicMint(address(NFT), mintThisMuch, NFT.mintCost()));
-
 
         // Post-state
         uint postBalanceMinter = address(tom).balance;
@@ -159,6 +157,8 @@ contract LoreumNFTTest is Utility, ERC721Holder {
         for (uint8 b = 0; b < mintThisMuch; b++) {
             assertEq(NFT.ownerOf(b + 1), address(tom));
         }
+
+        // TODO: Consider any ERC721Enumerable _beforeTokenTransfer() / _afterTokenTransfer() state changes
     }
 
     function test_publicMint_restrictions() public {
