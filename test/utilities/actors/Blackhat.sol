@@ -13,4 +13,9 @@ contract Blackhat {
         (ok,) = address(NFT).call(abi.encodeWithSignature(sig, amount));
     }
 
+    function try_transferOwnership(address NFT, address newOwner) external returns (bool ok) {
+        string memory sig = "transferOwnership(address)";
+        (ok,) = address(NFT).call(abi.encodeWithSignature(sig, newOwner));
+    }
+
 }

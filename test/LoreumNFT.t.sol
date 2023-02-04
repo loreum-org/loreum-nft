@@ -52,7 +52,7 @@ contract LoreumNFTTest is Utility {
     }
 
     // Validate NFT contract constructor() and deployment.
-    function test_LoreumNFT_initial_state(uint16 _uri) public {
+    function test_LoreumNFT_initial_state(uint128 salePrice) public {
 
         // Initial constructor() parameters.
         assertEq(NFT.name(), name);
@@ -63,19 +63,62 @@ contract LoreumNFTTest is Utility {
         assertEq(NFT.owner(), admin);
         assertEq(NFT.mintCost(), 0.05 ether);
 
-        // Native endpoints.
-        assertEq(NFT.tokenURI(_uri), string(abi.encodePacked(NFT.tokenUri(), Strings.toString(_uri))));
-        assertEq(NFT.totalSupply(), 0);
+        // ERC721
         assertEq(NFT.balanceOf(address(this)), 0);
+        
+        // ERC721Enumerable
+        assertEq(NFT.totalSupply(), 0);
 
-        // Supports interfaces check.
+        // ERC2981
+        uint256 compressedSalePrice = uint256(salePrice);   // NOTE: Using uint128 compressed range to avoid overflow.
+        (address royaltyReceiver, uint256 feeAmount) = NFT.royaltyInfo(0, compressedSalePrice);
+        assertEq(royaltyReceiver, NFT.owner());
+        assertEq(feeAmount, compressedSalePrice * royaltyFraction / 10_000);
+
+        // ERC165Storage
         assert(NFT.supportsInterface(type(IERC721).interfaceId));
         assert(NFT.supportsInterface(type(IERC721Metadata).interfaceId));
         assert(NFT.supportsInterface(type(IERC721Enumerable).interfaceId));
         assert(NFT.supportsInterface(type(IERC2981).interfaceId));
     }
     
-    // Validate publicMint() state changes.
+
+
+    // ~
+    // Loreum.nft Override Function Testing
+    // ~
+
+    function test_tokenURI_view(uint16 _uri) public {
+        assertEq(NFT.tokenURI(_uri), string(abi.encodePacked(NFT.tokenUri(), Strings.toString(_uri))));
+    }
+
+    function test_transferOwnership_state() public {
+        // TODO
+    }
+
+    function test_transferOwnership_restrictions() public {
+        assert(!ass.try_transferOwnership(address(NFT), address(ass)));
+    }
+
+
+
+    // ~
+    // Loreum.nft Native Function Testing
+    // ~
+    
+    function test_updateMintCost_state_changes(uint256 newCost) public {
+
+        // updateMintCost().
+        assert(god.try_updateMintCost(address(NFT), newCost));
+
+        // Post-state.
+        assertEq(NFT.mintCost(), newCost);
+    }
+
+    function test_updateMintCost_restrictions(uint256 newCost) public {
+        assert(!ass.try_updateMintCost(address(NFT), newCost));
+    }
+
     function test_publicMint_state(uint8 amountToMint) public {
 
         uint8 mintThisMuch = amountToMint % 5 + 1;
@@ -103,22 +146,9 @@ contract LoreumNFTTest is Utility {
         }
     }
 
-    // Validate updateMintCost() state changes.
-    function test_updateMintCost_state_changes(uint256 newCost) public {
-
-        // updateMintCost().
-        assert(god.try_updateMintCost(address(NFT), newCost));
-
-        // Post-state.
-        assertEq(NFT.mintCost(), newCost);
+    function test_publicMint_restrictions() public {
+        // TODO
     }
-
-    // Validate updateMintCost() restrictions.
-    function test_updateMintCost_restrictions(uint256 newCost) public {
-        assert(!ass.try_updateMintCost(address(NFT), newCost));
-    }
-
-    // TODO: Validate publicMint() restrictions.
 
     // function test_publicMint_state_full() public {
 
