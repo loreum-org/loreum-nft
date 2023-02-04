@@ -18,4 +18,9 @@ contract Blackhat {
         (ok,) = address(NFT).call(abi.encodeWithSignature(sig, newOwner));
     }
 
+    function try_publicMint(address NFT, uint8 amount, uint mintCost) external returns (bool ok) {
+        string memory sig = "publicMint(uint8)";
+        (ok,) = address(NFT).call{value: amount * mintCost}(abi.encodeWithSignature(sig, amount));
+    }
+
 }

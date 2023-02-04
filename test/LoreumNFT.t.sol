@@ -3,11 +3,12 @@ pragma solidity ^0.8.16;
 
 // Utility import
 import "test/utilities/Utility.sol";
+import "open-zeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 // NFT contract import(s)
 import "src/LoreumNFT.sol";
  
-contract LoreumNFTTest is Utility {
+contract LoreumNFTTest is Utility, ERC721Holder {
 
     LoreumNFT NFT;
 
@@ -93,7 +94,6 @@ contract LoreumNFTTest is Utility {
 
     function test_transferOwnership_state() public {
         
-        address currentOwner = NFT.owner();
         address newOwner = address(42);
 
         // transferOwnership()
@@ -144,7 +144,7 @@ contract LoreumNFTTest is Utility {
 
 
         // publicMint()
-        tom.try_publicMint(address(NFT), mintThisMuch, NFT.mintCost());
+        assert(tom.try_publicMint(address(NFT), mintThisMuch, NFT.mintCost()));
 
 
         // Post-state
@@ -162,25 +162,59 @@ contract LoreumNFTTest is Utility {
     }
 
     function test_publicMint_restrictions() public {
+        
+        // User attempts to pay less than mintCost()
+        // LoreumNFT::publicMint() msg.value != amount * mintCost
+        uint256 payment = NFT.mintCost() - 0.01 ether;
+        assert(!ass.try_publicMint(address(NFT), 1, payment));
+
+        // User attempts to mint 0 NFTs
+        // LoreumNFT::publicMint() amount == 0
+        payment = NFT.mintCost() - 0.01 ether;
+        assert(!ass.try_publicMint(address(NFT), 0, payment));
+        
+        // User attempts to mint more than MAX_MINT
+        // LoreumNFT::publicMint() amount + totalMinted[_msgSender()] > MAX_MINT
+        payment = NFT.mintCost() * (NFT.MAX_MINT() + 1);
+        assert(!ass.try_publicMint(address(NFT), NFT.MAX_MINT() + 1, payment));
+
         // TODO
+        // LoreumNFT::publicMint() minted >= MAX_SUPPLY || minted + amount > MAX_SUPPLY
+
     }
 
-    // function test_publicMint_state_full() public {
+    function test_publicMint_state_full() public {
 
-    //     for (uint i = 0; i < NFT.MAX_SUPPLY(); i++) {
-    //         tom.try_publicMint(address(NFT), 1, NFT.mintCost());
-    //     }
+        uint160 addressID = 55;  // NOTE: type(uint160) required for address(uint160) typecasting below
 
-    //     uint numberMinted = minter.minted();
-    //     for (uint i = 0; i < maxSupply; i++) {
-    //         if (numberMinted >= maxSupply) {
-    //             hevm.expectRevert("Minter::publicMint() minted > MAX_SUPPLY || minted + amount > MAX_SUPPLY");
-    //             minter.publicMint{value: 0.05 ether}(1);
-    //         } else {
-    //             minter.publicMint{value: 0.05 ether}(1);
-    //         }
-    //         numberMinted = minter.minted();
-    //     }
-    //     assertEq(minter.minted(), minter.MAX_SUPPLY());
-    // }
+        address payable minter = payable(address(addressID));
+        minter.transfer(NFT.MAX_MINT() * NFT.mintCost());
+
+        // Pre-state
+        uint256 preBal = NFT.owner().balance;
+
+        // Conduct "Mint"
+        while(NFT.totalSupply() < NFT.MAX_SUPPLY()) {
+            if (NFT.balanceOf(minter) == NFT.MAX_MINT()) {
+                // minter = address(addressID++);
+                addressID++;
+                minter = payable(address(addressID));
+                minter.transfer(NFT.MAX_MINT() * NFT.mintCost());
+            }
+            hevm.startPrank(minter);
+            NFT.publicMint{value: NFT.mintCost() * NFT.MAX_MINT()}(NFT.MAX_MINT());
+            hevm.stopPrank();
+        }
+
+        // Post-state.
+
+        // NFT "Mint" concludes when totalSupply() == MAX_SUPPLY()
+        assertEq(NFT.totalSupply(), NFT.MAX_SUPPLY());
+        assertEq(NFT.owner().balance, preBal + (NFT.totalSupply() * NFT.mintCost()));
+
+        // Tom (or any minter) is unable to mint additional
+        // LoreumNFT::publicMint() minted >= MAX_SUPPLY || minted + amount > MAX_SUPPLY
+        assert(!tom.try_publicMint(address(NFT), 1, NFT.mintCost()));
+    }
+
 }
