@@ -35,8 +35,7 @@ contract LoreumNFTTest is Utility, ERC721Holder {
         // Fund "tom" for minting expenses
         payable(address(tom)).transfer(100 ether);
 
-        // We define this variable here after deployCore() 
-        // in order to instantiate the actor "god"
+        // We define this variable here after deployCore() in order to instantiate the actor "god"
         admin = address(god);
 
         NFT = new LoreumNFT(
@@ -181,7 +180,8 @@ contract LoreumNFTTest is Utility, ERC721Holder {
 
     function test_publicMint_state_full() public {
 
-        uint160 addressID = 55;  // NOTE: type(uint160) required for address(uint160) typecasting below
+        // NOTE: type(uint160) required for address(uint160) typecasting below
+        uint160 addressID = 55;
 
         address payable minter = payable(address(addressID));
         minter.transfer(NFT.MAX_MINT() * NFT.mintCost());
@@ -202,7 +202,7 @@ contract LoreumNFTTest is Utility, ERC721Holder {
             hevm.stopPrank();
         }
 
-        // Post-state.
+        // Post-state
 
         // NFT "Mint" concludes when totalSupply() == MAX_SUPPLY()
         assertEq(NFT.totalSupply(), NFT.MAX_SUPPLY());
