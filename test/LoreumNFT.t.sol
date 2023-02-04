@@ -177,10 +177,6 @@ contract LoreumNFTTest is Utility, ERC721Holder {
         // LoreumNFT::publicMint() amount + totalMinted[_msgSender()] > MAX_MINT
         payment = NFT.mintCost() * (NFT.MAX_MINT() + 1);
         assert(!ass.try_publicMint(address(NFT), NFT.MAX_MINT() + 1, payment));
-
-        // TODO
-        // LoreumNFT::publicMint() minted >= MAX_SUPPLY || minted + amount > MAX_SUPPLY
-
     }
 
     function test_publicMint_state_full() public {
@@ -215,6 +211,8 @@ contract LoreumNFTTest is Utility, ERC721Holder {
         // Tom (or any minter) is unable to mint additional
         // LoreumNFT::publicMint() minted >= MAX_SUPPLY || minted + amount > MAX_SUPPLY
         assert(!tom.try_publicMint(address(NFT), 1, NFT.mintCost()));
+
+        // TODO: Check minted + amount > MAX_SUPPLY (i.e. 9999 minted, and mintAmount == 2)!
     }
 
 }
