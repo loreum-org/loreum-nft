@@ -180,6 +180,7 @@ contract LoreumNFTTest is Utility, ERC721Holder {
 
     function test_publicMint_state_full() public {
 
+
         // NOTE: type(uint160) required for address(uint160) typecasting below
         uint160 addressID = 55;
 
@@ -198,6 +199,7 @@ contract LoreumNFTTest is Utility, ERC721Holder {
                 minter.transfer(NFT.MAX_MINT() * NFT.mintCost());
             }
             hevm.startPrank(minter);
+            // NOTE: This test will revert if NFT.MAX_SUPPLY() % NFT.MAX_MINT != 0
             NFT.publicMint{value: NFT.mintCost() * NFT.MAX_MINT()}(NFT.MAX_MINT());
             hevm.stopPrank();
         }
