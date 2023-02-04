@@ -1,17 +1,17 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.16;
 
-// Utility import.
+// Utility import
 import "test/utilities/Utility.sol";
 
-// NFT contract import(s).
+// NFT contract import(s)
 import "src/LoreumNFT.sol";
  
 contract LoreumNFTTest is Utility {
 
     LoreumNFT NFT;
 
-    // Initial NFT settings.
+    // Initial NFT settings
     string public name = "LoreumNFT";
     string public symbol = "LOREUM";
     string public tokenUri = "ipfs://bafybeia4ba2mxk3dzdhu2kaqeh5svu244qmcwbkhm56e2nz4pnuqfake4q/";
@@ -21,21 +21,21 @@ contract LoreumNFTTest is Utility {
     uint16 public maxSupply = 10000;
     uint8 public maxMint = 5;
 
-    address admin;      /// @dev Defined in the setUp() function.
+    address admin;      /// @dev Defined in the setUp() function
 
 
 
     // Initial setUp() function, runs before every test_*.
     function setUp() public {
         
-        // Create actors and tokens.
+        // Create actors and tokens
         deployCore();
         
-        // Fund "tom" for minting expenses.
+        // Fund "tom" for minting expenses
         payable(address(tom)).transfer(100 ether);
 
         // We define this variable here after deployCore() 
-        // in order to instantiate the actor "god".
+        // in order to instantiate the actor "god"
         admin = address(god);
 
         NFT = new LoreumNFT(
@@ -51,10 +51,9 @@ contract LoreumNFTTest is Utility {
 
     }
 
-    // Validate NFT contract constructor() and deployment.
     function test_LoreumNFT_initial_state(uint128 salePrice) public {
 
-        // Initial constructor() parameters.
+        // Initial constructor() parameters
         assertEq(NFT.name(), name);
         assertEq(NFT.symbol(), symbol);
         assertEq(NFT.tokenUri(), "ipfs://bafybeia4ba2mxk3dzdhu2kaqeh5svu244qmcwbkhm56e2nz4pnuqfake4q/");
@@ -93,11 +92,27 @@ contract LoreumNFTTest is Utility {
     }
 
     function test_transferOwnership_state() public {
-        // TODO
+        
+        address currentOwner = NFT.owner();
+        address newOwner = address(42);
+
+        // transferOwnership()
+        assert(god.try_transferOwnership(address(NFT), newOwner));
+
+        // Post-state
+        assertEq(NFT.owner(), newOwner);
+        (address royaltyReceiver, ) = NFT.royaltyInfo(0, 1 ether);
+        assertEq(royaltyReceiver, newOwner);
+
     }
 
     function test_transferOwnership_restrictions() public {
+
+        // onlyOwner
         assert(!ass.try_transferOwnership(address(NFT), address(ass)));
+
+        // newOwner != address(0)
+        assert(!god.try_transferOwnership(address(NFT), address(0)));
     }
 
 
@@ -108,10 +123,10 @@ contract LoreumNFTTest is Utility {
     
     function test_updateMintCost_state_changes(uint256 newCost) public {
 
-        // updateMintCost().
+        // updateMintCost()
         assert(god.try_updateMintCost(address(NFT), newCost));
 
-        // Post-state.
+        // Post-state
         assertEq(NFT.mintCost(), newCost);
     }
 
@@ -123,16 +138,16 @@ contract LoreumNFTTest is Utility {
 
         uint8 mintThisMuch = amountToMint % 5 + 1;
 
-        // Pre-state.
+        // Pre-state
         uint preBalanceMinter = address(tom).balance;
         uint preBalanceOwner = address(NFT.owner()).balance;
 
 
-        // publicMint().
+        // publicMint()
         tom.try_publicMint(address(NFT), mintThisMuch, NFT.mintCost());
 
 
-        // Post-state.
+        // Post-state
         uint postBalanceMinter = address(tom).balance;
         uint postBalanceOwner = address(NFT.owner()).balance;
 

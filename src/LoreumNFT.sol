@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.16;
 
 import "open-zeppelin/contracts/token/common/ERC2981.sol";
@@ -108,7 +108,7 @@ contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable {
     /// @notice Transfers ownership of the contract to a new account (`newOwner`) and updates defaultyRoyalty info.
     /// @dev    Can only be called by the current owner.
     function transferOwnership(address newOwner) public override(Ownable) onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        require(newOwner != address(0), "LoreumNFT::transferOwnership() newOwner == address(0)");
         _transferOwnership(newOwner);
         _setDefaultRoyalty(newOwner, royaltyFraction);
     }
@@ -130,14 +130,14 @@ contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable {
     /// @notice A public endpoint to mint an NFT, allows for batch minting.
     /// @param  amount The amount of NFTs to mint.
     function publicMint(uint8 amount) external payable {
-        require(msg.value == amount * mintCost, "Minter::publicMint() msg.value != amount * mintCost");
+        require(msg.value == amount * mintCost, "LoreumNFT::publicMint() msg.value != amount * mintCost");
         require(
             amount > 0 && amount + totalMinted[_msgSender()] <= MAX_MINT, 
-            "Minter::publicMint() amount == 0 || amount + totalMinted[_msgSender()] > MAX_MINT"
+            "LoreumNFT::publicMint() amount == 0 || amount + totalMinted[_msgSender()] > MAX_MINT"
         );
         require(
             totalSupply() < MAX_SUPPLY && totalSupply() + amount <= MAX_SUPPLY, 
-            "Minter::publicMint() minted >= MAX_SUPPLY || minted + amount > MAX_SUPPLY"
+            "LoreumNFT::publicMint() minted >= MAX_SUPPLY || minted + amount > MAX_SUPPLY"
         );
         
         // Increment amount of NFTs minted by _msgSender().
