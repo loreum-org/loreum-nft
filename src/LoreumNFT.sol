@@ -5,11 +5,12 @@ import "open-zeppelin/contracts/token/common/ERC2981.sol";
 import "open-zeppelin/contracts/utils/introspection/ERC165Storage.sol";
 
 import "open-zeppelin/contracts/access/Ownable.sol";
+import "open-zeppelin/contracts/security/ReentrancyGuard.sol";
 import "open-zeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "open-zeppelin/contracts/utils/Strings.sol";
 
 /// @title The base NFT contract for the Loreum collection.
-contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable {
+contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard {
 
     // ---------------------
     //    State Variables
@@ -129,7 +130,7 @@ contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable {
 
     /// @notice A public endpoint to mint an NFT, allows for batch minting.
     /// @param  amount The amount of NFTs to mint.
-    function publicMint(uint8 amount) external payable {
+    function publicMint(uint8 amount) external payable nonReentrant {
         require(msg.value == amount * mintCost, "LoreumNFT::publicMint() msg.value != amount * mintCost");
         require(
             amount > 0 && amount + totalMinted[_msgSender()] <= MAX_MINT, 
