@@ -6,15 +6,23 @@ async function main() {
   const admin = ethers.provider.getSigner(1);
   const adminAdr = await admin.getAddress();
 
-  console.log(adminAdr)
+  console.log("Admin Address:", adminAdr)
 
   const name = "LoreumNFT";
   const symbol = "LOREUM";
   const tokenUri = "ipfs://bafybeia4ba2mxk3dzdhu2kaqeh5svu244qmcwbkhm56e2nz4pnuqfake4q/";
-  const mintCost = ethers.BigNumber.from("5").pow(16);
+  const mintCost = ethers.BigNumber.from("10").pow(16).mul(5)
   const royaltyFraction = 500;
   const maxSupply = 10000;
   const maxMint = 100;
+
+  console.log("Name:", name);
+  console.log("Symbol:", symbol);
+  console.log("Token URI:", tokenUri);
+  console.log("Mint Cost:", ethers.utils.formatEther(mintCost.toString()), "ether");
+  console.log("Royalty Fraction:", royaltyFraction);
+  console.log("Max Supply:", maxSupply);
+  console.log("Max Mint per Wallet:", maxMint);
 
   const LoreumNFT = await ethers.getContractFactory(name);
   const NFT = await LoreumNFT.deploy(
@@ -29,7 +37,7 @@ async function main() {
   );
 
   await NFT.deployed();
-  console.log(NFT.address);
+  console.log("NFT Contract:", NFT.address);
 }
 
 main()

@@ -82,13 +82,13 @@ async function main() {
 
   // Dump account balances
   const deployerBal = await ethers.provider.getBalance(deployAdr);
-  console.log("\n******** Deployer Balance", ethers.utils.formatEther(deployerBal));
+  console.log("\n******** Deployer Balance", deployAdr, ethers.utils.formatEther(deployerBal));
   const adminBal = await ethers.provider.getBalance(adminAdr);
-  console.log("\n******** Admin Balance", ethers.utils.formatEther(adminBal));
+  console.log("\n******** Admin Balance", adminAdr, ethers.utils.formatEther(adminBal));
   const bobBal = await ethers.provider.getBalance(bobAdr);
-  console.log("\n******** Bob Balance", ethers.utils.formatEther(bobBal));
+  console.log("\n******** Bob Balance", bobAdr, ethers.utils.formatEther(bobBal));
   const aliceBal = await ethers.provider.getBalance(aliceAdr);
-  console.log("\n******** Alice Balance", ethers.utils.formatEther(aliceBal));
+  console.log("\n******** Alice Balance", aliceAdr, ethers.utils.formatEther(aliceBal));
 }
 
 main()
