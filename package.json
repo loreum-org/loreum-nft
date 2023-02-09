@@ -1,7 +1,7 @@
 {
-  "name": "loreum-nft",
-  "version": "0.1.0",
-  "description": "Loreum NFT",
+  "name": "@loreum/loreum-nft",
+  "version": "0.1.1",
+  "description": "Loreum NFT Contracts",
   "author": "Loreum",
   "license": "MIT",
   "private": false,
