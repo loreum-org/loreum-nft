@@ -1,6 +1,6 @@
 {
   "name": "@loreum/loreum-nft",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Loreum NFT Contracts",
   "author": "Loreum",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "files": [
     "/abis/*.json",
     "/src/*.sol",
-    "/typechain-types/index.ts"
+    "/typechain/index.ts"
   ],
   "keywords": [
     "loreum",
