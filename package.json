@@ -7,7 +7,8 @@
   "private": false,
   "files": [
     "/abis/*.json",
-    "/src/*.sol"
+    "/src/*.sol",
+    "/typechain-types/index.ts"
   ],
   "keywords": [
     "loreum",
