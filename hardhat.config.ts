@@ -39,6 +39,10 @@ const config: HardhatUserConfig = {
       goerli: process.env.ETHERSCAN_API_KEY || "",
     },
   },
+  typechain: {
+    outDir: "typechain",
+    target: "ethers-v5",
+  },
   solidity: {
     compilers: [
       {
