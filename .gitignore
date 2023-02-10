@@ -15,8 +15,8 @@ yarn.lock
 !.env.template
 coverage
 coverage.json
-typechain
-typechain-types
+# typechain
+# typechain-types
 .DS_Store
 
 # Hardhat files
