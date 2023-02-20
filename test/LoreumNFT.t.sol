@@ -217,4 +217,42 @@ contract LoreumNFTTest is Utility, ERC721Holder {
         // TODO: Check minted + amount > MAX_SUPPLY (i.e. 9999 minted, and mintAmount == 2)!
     }
 
+    function test_publicMint_state_full2() public {
+
+
+        // NOTE: type(uint160) required for address(uint160) typecasting below
+        uint160 addressID = 55;
+
+        address payable minter = payable(address(addressID));
+        minter.transfer(NFT.MAX_MINT() * NFT.mintCost());
+
+        // Conduct "Mint"
+        while(NFT.totalSupply() < NFT.MAX_SUPPLY() - 6) {
+            if (NFT.balanceOf(minter) == NFT.MAX_MINT()) {
+                // minter = address(addressID++);
+                addressID++;
+                minter = payable(address(addressID));
+                minter.transfer(NFT.MAX_MINT() * NFT.mintCost());
+            }
+            hevm.startPrank(minter);
+            // NOTE: This test will revert if NFT.MAX_SUPPLY() % NFT.MAX_MINT != 0
+            NFT.publicMint{value: NFT.mintCost() * NFT.MAX_MINT()}(NFT.MAX_MINT());
+            hevm.stopPrank();
+        }
+
+
+
+        // Assert there's 9995 total minted, and mint 4 more to push it to edge-case 9999.
+        NFT.publicMint{value: NFT.mintCost() * 4}(4);
+        assertEq(NFT.totalSupply(), 9999);
+        
+        // Assert "tom" can finish the mint by minting only 1 more.
+        assert(!tom.try_publicMint(address(NFT), 5, NFT.mintCost()));
+        assert(!tom.try_publicMint(address(NFT), 4, NFT.mintCost()));
+        assert(!tom.try_publicMint(address(NFT), 3, NFT.mintCost()));
+        assert(!tom.try_publicMint(address(NFT), 2, NFT.mintCost()));
+        assert(tom.try_publicMint(address(NFT), 1, NFT.mintCost()));
+
+    }
+
 }
