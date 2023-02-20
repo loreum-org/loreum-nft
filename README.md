@@ -44,3 +44,16 @@ yarn compile
 yarn deploy:local
 yarn cycle
 ```
+
+## Verify 
+
+npx hardhat verify --network goerli 0xCA993ad15300Eba7d8351a361582B81dbC02e025 Blackholes HOLES ipfs://QmV2GaNKyngHThr7pbnVAg8YnT9e8Nuo6WSiAAPhtVcAs8/ 5000000000000000 500 100 100 0xA9bF0E34859870cF14102dC6894a7B2AC3ceDf83
+
+  name,
+  symbol,
+  tokenUri,
+  mintCost,
+  royaltyFraction,
+  maxSupply,
+  maxMint,
+  adminAddress

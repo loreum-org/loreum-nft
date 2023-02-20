@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { localhost } from "./networks";
+import { localhost } from "./deployments";
 import { LoreumNFT, LoreumNFT__factory } from "../typechain";
 
 async function main() {

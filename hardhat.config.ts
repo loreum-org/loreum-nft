@@ -7,6 +7,7 @@ import "hardhat-abi-exporter";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-preprocessor";
 import "dotenv/config";
+import { tasks } from "hardhat";
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
@@ -97,5 +98,6 @@ function getRemappings() {
     .filter(Boolean) // remove empty lines
     .map((line) => line.trim().split("="));
 }
+
 
 export default config;

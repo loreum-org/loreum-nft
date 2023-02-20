@@ -34,7 +34,7 @@
     "compile:force": "hardhat compile --force",
     "cycle": "hardhat run --network localhost scripts/cycle.ts",
     "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
-    "deploy:goerli": "npx hardhat run --network goerli scripts/hardhat/deploy.ts",
+    "deploy:goerli": "npx hardhat run --network goerli scripts/deploy.ts",
     "format:check": "prettier --check '**/*.{ts,json,yaml,md}'",
     "format:write": "prettier --write '**/*.{ts,json,yaml,md}'",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
