@@ -28,10 +28,10 @@ export const mainnet = {
   LoreumNFT: "",
   name: "Loreum Explorers",
   symbol: "LOREUM",
-  tokenUri: "ipfs://Qmf1rhNDzgcam4pkctyaekCZNUXf47Ngmwzmci52wdpV8S/",
-  mintCost: ethers.BigNumber.from("10").pow(16).mul(5),
+  tokenUri: "ipfs://QmcTBMUiaDQTCt3KT3JLadwKMcBGKTYtiuhopTUafo1h9L/",
+  mintCost: ethers.BigNumber.from("10").pow(16).mul(5), // 0.05 ether
   royaltyFraction: 500,
   maxSupply: 10000,
   maxMint: 100,
-  adminAddress: "0xA9bF0E34859870cF14102dC6894a7B2AC3ceDf83" 
+  adminAddress: "0x5d45A213B2B6259F0b3c116a8907B56AB5E22095"
 }
