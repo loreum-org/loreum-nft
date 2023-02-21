@@ -22,7 +22,7 @@ async function main() {
       return deploy(deployments['localhost']);
     case 'goerli':
       return deploy(deployments['goerli']);
-    case 'mainnet':
+    case 'homestead':
       return deploy(deployments['mainnet']);
   }
 };

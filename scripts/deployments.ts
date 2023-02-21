@@ -13,7 +13,8 @@ export const localhost = {
 };
 
 export const goerli = {
-  LoreumNFT: "0x2b1f4f3ddc5689967Efa315d28ACb9da7582A3B7",
+  //LoreumNFT: "0x2b1f4f3ddc5689967Efa315d28ACb9da7582A3B7",
+  LoreumNFT: "0x854D64C2c2595B92A2A4FaB4a6e96625CcEAd89B",
   name: "Blackholes",
   symbol: "HOLES",
   tokenUri: "ipfs://QmdmSzXAHnQW2ufFp9eApwb1HQQkrZAAnZqtzfb9bbXVqn/",
@@ -25,7 +26,7 @@ export const goerli = {
 }
 
 export const mainnet = {
-  LoreumNFT: "",
+  LoreumNFT: "0xB99DEdbDe082B8Be86f06449f2fC7b9FED044E15",
   name: "Loreum Explorers",
   symbol: "LOREUM",
   tokenUri: "ipfs://QmcTBMUiaDQTCt3KT3JLadwKMcBGKTYtiuhopTUafo1h9L/",

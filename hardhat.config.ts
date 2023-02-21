@@ -7,7 +7,7 @@ import "hardhat-abi-exporter";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-preprocessor";
 import "dotenv/config";
-import { tasks } from "hardhat";
+
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
@@ -34,10 +34,15 @@ const config: HardhatUserConfig = {
       url: process.env.GORELI_RPC_URL || "",
       accounts: [process.env.GOERLI_DEPLOYER_KEY || ""],
     },
+    mainnet: {
+      url: process.env.MAINNET_RPC_URL || "",
+      accounts: [process.env.MAINNET_DEPLOYER_KEY || ""],
+    },
   },
   etherscan: {
     apiKey: {
       goerli: process.env.ETHERSCAN_API_KEY || "",
+      mainnet: process.env.ETHERSCAN_API_KEY || "",
     },
   },
   typechain: {
@@ -47,7 +52,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.16",
+        version: "0.8.17",
         settings: { optimizer: { enabled: true, runs: 88888 } },
       },
       {
