@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.16;
+pragma solidity ^0.8.17;
 
 import "open-zeppelin/contracts/token/common/ERC2981.sol";
 import "open-zeppelin/contracts/utils/introspection/ERC165Storage.sol";
