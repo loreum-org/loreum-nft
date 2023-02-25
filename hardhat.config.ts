@@ -16,6 +16,9 @@ const config: HardhatUserConfig = {
       allowUnlimitedContractSize: false,
       hardfork: "london", // Berlin is used (temporarily) to avoid issues with coverage
       mining: {
+        // mempool: {
+        //   order: "fifo"
+        // },
         auto: true,
         interval: 50000,
       },
@@ -25,8 +28,14 @@ const config: HardhatUserConfig = {
       allowUnlimitedContractSize: false,
       hardfork: "london", // Berlin is used (temporarily) to avoid issues with coverage
       mining: {
+        mempool: {
+          order: "fifo"
+        },
         auto: true,
         interval: 50000,
+      },
+      forking: {
+        url: process.env.MAINNET_RPC_URL || "",
       },
       gasPrice: "auto",
     },
@@ -36,7 +45,7 @@ const config: HardhatUserConfig = {
     },
     mainnet: {
       url: process.env.MAINNET_RPC_URL || "",
-      accounts: [process.env.MAINNET_DEPLOYER_KEY || ""],
+      accounts: [process.env.MAINNET_DEPLOYER_KEY || "0x0000000000000000000000000000000000000000000000000000000000"],
     },
   },
   etherscan: {

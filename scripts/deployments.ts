@@ -22,7 +22,7 @@ export const goerli = {
   royaltyFraction: 500,
   maxSupply: 100,
   maxMint: 100,
-  adminAddress: "0xA9bF0E34859870cF14102dC6894a7B2AC3ceDf83"
+  adminAddress: "0xA9bF0E34859870cF14102dC6894a7B2AC3ceDf83" // EOA
 }
 
 export const mainnet = {

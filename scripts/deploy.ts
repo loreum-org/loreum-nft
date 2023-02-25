@@ -56,7 +56,7 @@ async function deploy({
     maxMint,
     adminAddress
   );
-
+  
   await NFT.deployed();
   console.log("NFT Contract:", '\t\t', NFT.address);
 }

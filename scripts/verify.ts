@@ -2,7 +2,7 @@ import hre from 'hardhat'
 import * as deployments from './deployments';
 
 async function main() {
-  const params = deployments['mainnet']
+  const params = deployments['goerli']
   await hre.run("verify:verify", {
     address: params.LoreumNFT,
     constructorArguments: [
