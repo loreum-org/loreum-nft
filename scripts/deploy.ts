@@ -1,30 +1,51 @@
+import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
+import * as deployments from "./deployments";
+
+type DeploymentParams = {
+  LoreumNFT: string;
+  name: string;
+  symbol: string;
+  tokenUri: string;
+  mintCost: BigNumber;
+  royaltyFraction: number;
+  maxSupply: number;
+  maxMint: number;
+  adminAddress: string;
+};
 
 async function main() {
-  console.log("Deploying NFT Contracts...");
+  const network: String = (await ethers.provider.getNetwork()).name;
+  console.log("Network:", "\t\t", network);
+  switch(network) {
+    case 'unknown':
+      return deploy(deployments['localhost']);
+    case 'goerli':
+      return deploy(deployments['goerli']);
+    case 'homestead':
+      return deploy(deployments['mainnet']);
+  }
+};
 
-  const admin = ethers.provider.getSigner(1);
-  const adminAdr = await admin.getAddress();
+async function deploy({
+  name,
+  symbol,
+  tokenUri,
+  mintCost,
+  royaltyFraction,
+  maxSupply,
+  maxMint,
+  adminAddress}: DeploymentParams) {
+  console.log("Name:", '\t\t\t', name);
+  console.log("Symbol:", '\t\t', symbol);
+  console.log("Token URI:", '\t\t', tokenUri);
+  console.log("Mint Cost:", '\t\t', ethers.utils.formatEther(mintCost.toString()), "ether");
+  console.log("Royalty Fraction:", '\t', royaltyFraction);
+  console.log("Max Supply:", '\t\t', maxSupply);
+  console.log("Max Mint per Wallet:", '\t', maxMint);
+  console.log("Admin Address", '\t\t', adminAddress)
 
-  console.log("Admin Address:", adminAdr)
-
-  const name = "LoreumNFT";
-  const symbol = "LOREUM";
-  const tokenUri = "ipfs://bafybeia4ba2mxk3dzdhu2kaqeh5svu244qmcwbkhm56e2nz4pnuqfake4q/";
-  const mintCost = ethers.BigNumber.from("10").pow(16).mul(5)
-  const royaltyFraction = 500;
-  const maxSupply = 10000;
-  const maxMint = 100;
-
-  console.log("Name:", name);
-  console.log("Symbol:", symbol);
-  console.log("Token URI:", tokenUri);
-  console.log("Mint Cost:", ethers.utils.formatEther(mintCost.toString()), "ether");
-  console.log("Royalty Fraction:", royaltyFraction);
-  console.log("Max Supply:", maxSupply);
-  console.log("Max Mint per Wallet:", maxMint);
-
-  const LoreumNFT = await ethers.getContractFactory(name);
+  const LoreumNFT = await ethers.getContractFactory('LoreumNFT');
   const NFT = await LoreumNFT.deploy(
     name,
     symbol,
@@ -33,11 +54,11 @@ async function main() {
     royaltyFraction,
     maxSupply,
     maxMint,
-    adminAdr
+    adminAddress
   );
-
+  
   await NFT.deployed();
-  console.log("NFT Contract:", NFT.address);
+  console.log("NFT Contract:", '\t\t', NFT.address);
 }
 
 main()

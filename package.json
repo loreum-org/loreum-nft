@@ -1,13 +1,14 @@
 {
-  "name": "loreum-nft",
-  "version": "0.1.0",
-  "description": "Loreum NFT",
+  "name": "@loreum/loreum-nft",
+  "version": "0.1.6",
+  "description": "Loreum NFT Contracts",
   "author": "Loreum",
   "license": "MIT",
   "private": false,
   "files": [
     "/abis/*.json",
-    "/src/*.sol"
+    "/src/*.sol",
+    "/typechain"
   ],
   "keywords": [
     "loreum",
@@ -33,7 +34,8 @@
     "compile:force": "hardhat compile --force",
     "cycle": "hardhat run --network localhost scripts/cycle.ts",
     "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
-    "deploy:goerli": "npx hardhat run --network goerli scripts/hardhat/deploy.ts",
+    "deploy:goerli": "npx hardhat run --network goerli scripts/deploy.ts",
+    "deploy:mainnet": "npx hardhat run --network mainnet scripts/deploy.ts",
     "format:check": "prettier --check '**/*.{ts,json,yaml,md}'",
     "format:write": "prettier --write '**/*.{ts,json,yaml,md}'",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
