@@ -1,5 +1,7 @@
 ## Loreum NFT POC
 
+This branch saves the version deployed to mainnet.
+
 ### Setup
 
 1. Copy `.example.env` to `.env`
