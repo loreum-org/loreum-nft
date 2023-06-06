@@ -1,8 +1,7 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.17;
+// SPDX-License-Identifier: GPL-3.0-only
+pragma solidity ^0.8.19;
 
 import "openzeppelin-contracts/contracts/token/common/ERC2981.sol";
-// import "openzeppelin-contracts/contracts/utils/introspection/ERC165Storage.sol";
 
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
@@ -10,7 +9,7 @@ import "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerabl
 import "openzeppelin-contracts/contracts/utils/Strings.sol";
 
 /// @title The base NFT contract for the Loreum collection.
-contract LoreumNFT is ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard { // ERC165Storage
+contract LoreumNFT is ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard {
 
     // ---------------------
     //    State Variables
