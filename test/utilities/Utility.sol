@@ -8,7 +8,7 @@ import "./actors/Minter.sol";
 
 // Test (foundry-rs) imports.
 import "lib/forge-std/src/Test.sol";
-import "open-zeppelin/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 // Interface imports.
 interface Hevm {

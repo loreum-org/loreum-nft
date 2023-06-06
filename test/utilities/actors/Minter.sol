@@ -2,7 +2,7 @@
 pragma solidity ^0.8.16;
 pragma experimental ABIEncoderV2;
 
-import "open-zeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import "openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 contract Minter is ERC721Holder {
 

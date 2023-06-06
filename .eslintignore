@@ -6,5 +6,5 @@ gasReporterOutput.json
 typechain
 typechain-types
 lib/ds-test
-lib/open-zeppelin 
+lib/openzeppelin-contracts
 
