@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.16;
+// SPDX-License-Identifier: GPL-3.0-only
+pragma solidity ^0.8.19;
 
 // User imports.
 import "./actors/Admin.sol";
@@ -8,7 +8,7 @@ import "./actors/Minter.sol";
 
 // Test (foundry-rs) imports.
 import "lib/forge-std/src/Test.sol";
-import "open-zeppelin/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 // Interface imports.
 interface Hevm {

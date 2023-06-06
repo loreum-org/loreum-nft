@@ -1,16 +1,15 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.17;
+// SPDX-License-Identifier: GPL-3.0-only
+pragma solidity ^0.8.19;
 
-import "open-zeppelin/contracts/token/common/ERC2981.sol";
-import "open-zeppelin/contracts/utils/introspection/ERC165Storage.sol";
+import "openzeppelin-contracts/contracts/token/common/ERC2981.sol";
 
-import "open-zeppelin/contracts/access/Ownable.sol";
-import "open-zeppelin/contracts/security/ReentrancyGuard.sol";
-import "open-zeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "open-zeppelin/contracts/utils/Strings.sol";
+import "openzeppelin-contracts/contracts/access/Ownable.sol";
+import "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
+import "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "openzeppelin-contracts/contracts/utils/Strings.sol";
 
 /// @title The base NFT contract for the Loreum collection.
-contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard {
+contract LoreumNFT is ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard {
 
     // ---------------------
     //    State Variables
@@ -50,7 +49,7 @@ contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable, Reentra
         uint16 maxSupply_,
         uint8 maxMint_,
         address admin
-    ) ERC721(name_, symbol_) {
+    ) Ownable(_msgSender()) ERC721(name_, symbol_) {
         // Initial assignment of state variables.
         tokenUri = tokenUri_;
         mintCost = mintCost_;
@@ -63,12 +62,6 @@ contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable, Reentra
 
         // Update royalty fees, per ERC2981 standard.
         _setDefaultRoyalty(admin, royaltyFraction);
-
-        // Register supported interfaces, per ERC165Storage standard.
-        _registerInterface(type(IERC721).interfaceId);
-        _registerInterface(type(IERC721Metadata).interfaceId);
-        _registerInterface(type(IERC721Enumerable).interfaceId);
-        _registerInterface(type(IERC2981).interfaceId);
     }
 
 
@@ -94,15 +87,14 @@ contract LoreumNFT is ERC165Storage, ERC2981, ERC721Enumerable, Ownable, Reentra
     // ---------------
 
     /// @notice Overrides the supportsInterface function in three base contracts.
-    /// @dev    Explicitly points to ERC165Storage to reference _supportsInterfaces mapping.
     /// @param  interfaceId The interfaceId to check support for.
     function supportsInterface(bytes4 interfaceId) 
         public 
         view 
-        override(ERC165Storage, ERC2981, ERC721Enumerable) 
+        override(ERC2981, ERC721Enumerable) 
         returns (bool) 
     {
-        return ERC165Storage.supportsInterface(interfaceId);
+        return interfaceId == type(IERC721).interfaceId || interfaceId == type(IERC721Metadata).interfaceId || interfaceId == type(IERC721Enumerable).interfaceId || interfaceId == type(IERC2981).interfaceId || super.supportsInterface(interfaceId);
     }
 
 

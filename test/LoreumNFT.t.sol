@@ -1,9 +1,9 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.16;
+// SPDX-License-Identifier: GPL-3.0-only
+pragma solidity ^0.8.19;
 
 // Utility import
 import "test/utilities/Utility.sol";
-import "open-zeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import "openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 // NFT contract import(s)
 import "src/LoreumNFT.sol";

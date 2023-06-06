@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.16;
+// SPDX-License-Identifier: GPL-3.0-only
+pragma solidity ^0.8.19;
 pragma experimental ABIEncoderV2;
 
-import "open-zeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import "openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 contract Minter is ERC721Holder {
 

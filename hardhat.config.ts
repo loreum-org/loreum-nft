@@ -101,7 +101,7 @@ const config: HardhatUserConfig = {
     clear: true,
     flat: true,
     pretty: false,
-    except: ["test*", "open-zeppelin*", "uniswap*"],
+    except: ["test*", "openzeppelin-contracts*", "uniswap*"],
   },
 };
 
