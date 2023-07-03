@@ -49,7 +49,7 @@ contract LoreumNFT is ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard {
         uint16 maxSupply_,
         uint8 maxMint_,
         address admin
-    ) Ownable(_msgSender()) ERC721(name_, symbol_) {
+    ) Ownable() ERC721(name_, symbol_) {
         // Initial assignment of state variables.
         tokenUri = tokenUri_;
         mintCost = mintCost_;
