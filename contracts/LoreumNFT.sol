@@ -7,6 +7,8 @@ import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "openzeppelin-contracts/contracts/utils/Strings.sol";
+import "openzeppelin-contracts/contracts/interfaces/IERC721.sol";
+import "openzeppelin-contracts/contracts/interfaces/IERC721Metadata.sol";
 
 /// @title The base NFT contract for the Loreum collection.
 contract LoreumNFT is ERC2981, ERC721Enumerable, Ownable, ReentrancyGuard {

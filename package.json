@@ -33,7 +33,7 @@
     "compile": "hardhat compile",
     "compile:force": "hardhat compile --force",
     "cycle": "hardhat run --network localhost scripts/cycle.ts",
-    "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
+    "deploy": "npx hardhat run --network localhost scripts/deploy.ts",
     "deploy:goerli": "npx hardhat run --network goerli scripts/deploy.ts",
     "deploy:mainnet": "npx hardhat run --network mainnet scripts/deploy.ts",
     "test:forge": "forge test"
