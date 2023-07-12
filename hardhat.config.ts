@@ -45,7 +45,7 @@ const config: HardhatUserConfig = {
     },
     mainnet: {
       url: process.env.MAINNET_RPC_URL || "https://alchemyapi.io/v2/your-api-key",
-      accounts: [process.env.MAINNET_DEPLOYER_KEY || "0x0000000000000000000000000000000000000000000000000000000000"],
+      accounts: [process.env.MAINNET_DEPLOYER_KEY! || "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"],
     },
   },
   etherscan: {
@@ -90,8 +90,8 @@ const config: HardhatUserConfig = {
     }),
   },
   paths: {
-    sources: "./src/",
-    tests: "./test",
+    sources: "./contracts",
+    tests: "./tests",
     cache: "./cache",
     artifacts: "./artifacts",
   },
@@ -101,7 +101,7 @@ const config: HardhatUserConfig = {
     clear: true,
     flat: true,
     pretty: false,
-    except: ["test*", "openzeppelin-contracts*", "uniswap*"],
+    except: ["tests*", "openzeppelin-contracts*"],
   },
 };
 
