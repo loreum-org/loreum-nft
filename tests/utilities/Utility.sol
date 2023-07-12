@@ -7,7 +7,7 @@ import "./actors/Blackhat.sol";
 import "./actors/Minter.sol";
 
 // Test (foundry-rs) imports.
-import "lib/forge-std/src/Test.sol";
+import "forge-std/src/Test.sol";
 import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 // Interface imports.

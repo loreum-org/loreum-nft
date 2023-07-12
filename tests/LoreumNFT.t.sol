@@ -2,11 +2,11 @@
 pragma solidity ^0.8.19;
 
 // Utility import
-import "test/utilities/Utility.sol";
+import "tests/utilities/Utility.sol";
 import "openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 // NFT contract import(s)
-import "src/LoreumNFT.sol";
+import "contracts/LoreumNFT.sol";
  
 contract LoreumNFTTest is Utility, ERC721Holder {
 
