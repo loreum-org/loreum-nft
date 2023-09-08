@@ -20,8 +20,8 @@ async function main() {
   switch(network) {
     case 'unknown':
       return deploy(deployments['localhost']);
-    case 'goerli':
-      return deploy(deployments['goerli']);
+    case 'sepolia':
+      return deploy(deployments['sepolia']);
     case 'homestead':
       return deploy(deployments['mainnet']);
   }

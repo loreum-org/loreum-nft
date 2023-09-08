@@ -12,17 +12,16 @@ export const localhost = {
   adminAddress: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
 };
 
-export const goerli = {
-  //LoreumNFT: "0x2b1f4f3ddc5689967Efa315d28ACb9da7582A3B7",
-  LoreumNFT: "0x854D64C2c2595B92A2A4FaB4a6e96625CcEAd89B",
+export const sepolia = {
+  LoreumNFT: "0x69e41faF363A6Be4Cde76268315F48Ef0034C8b8",
   name: "Blackholes",
   symbol: "HOLES",
   tokenUri: "ipfs://QmdmSzXAHnQW2ufFp9eApwb1HQQkrZAAnZqtzfb9bbXVqn/",
-  mintCost: ethers.BigNumber.from("10").pow(16).mul(5),
+  mintCost: ethers.BigNumber.from("10").pow(14).mul(1),
   royaltyFraction: 500,
   maxSupply: 100,
   maxMint: 100,
-  adminAddress: "0xA9bF0E34859870cF14102dC6894a7B2AC3ceDf83" // EOA
+  adminAddress: "0x2e0049b05217290087BA613290BaCC761d7adD04" // EOA
 }
 
 export const mainnet = {
