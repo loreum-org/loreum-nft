@@ -39,19 +39,19 @@ const config: HardhatUserConfig = {
       },
       gasPrice: "auto",
     },
-    goerli: {
-      url: process.env.GORELI_RPC_URL || "https://alchemyapi.io/v2/your-api-key",
-      accounts: [process.env.GOERLI_DEPLOYER_KEY || "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"],
+    sepolia: {
+      url: "https://rpc.ankr.com/eth_sepolia",
+      accounts: [process.env.SEPOLIA_DEPLOYER_KEY as string ?? 'SEPOLIA_DEPLOYER_KEY'],
     },
     mainnet: {
-      url: process.env.MAINNET_RPC_URL || "https://alchemyapi.io/v2/your-api-key",
-      accounts: [process.env.MAINNET_DEPLOYER_KEY! || "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"],
+      url: "https://rpc.ankr.com/eth",
+      accounts: [process.env.MAINNET_DEPLOYER_KEY as string ?? 'MAINNET_DEPLOYER_KEY'],
     },
   },
   etherscan: {
     apiKey: {
-      goerli: process.env.ETHERSCAN_API_KEY || "",
-      mainnet: process.env.ETHERSCAN_API_KEY || "",
+      sepolia: process.env.ETHERSCAN_API_KEY as string ?? 'ETHERSCAN_API_KEY',
+      mainnet: process.env.ETHERSCAN_API_KEY as string ?? 'ETHERSCAN_API_KEY',
     },
   },
   typechain: {
